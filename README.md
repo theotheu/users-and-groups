@@ -18,14 +18,6 @@ Go to the working directory
 cd ~/workspaces/users-and-groups-demo
 ```
 
-Import seed
-```
-mongorestore --collection users --db p123456 ~/workspaces/users-and-groups-demo/data/seed/users.bson
-mongorestore --collection users --db p123456 ~/workspaces/users-and-groups-demo/data/seed/users.metadata.json
-mongorestore --collection groups --db p123456 ~/workspaces/users-and-groups-demo/data/seed/groups.bson
-mongorestore --collection groups --db p123456 ~/workspaces/users-and-groups-demo/data/seed/groups.metadata.json
-```
-
 Configuration
 ----------
 Copy ```config.js.default``` to ```config.js```.
@@ -79,8 +71,8 @@ Instructions to prepare a deployment
 ===================================
 
 * Verify that you have a explanatory README.md
-* Make an export of your data with mongodump ```mongodump --collection books --db p123456 --out ~/workspaces/users-and-groups-demo/data``` (see http://docs.mongodb.org/v2.2/reference/mongodump/)
-* Create in your repository a directory ```data``` where you put your export, with import instructions.
+* Make an export of your data with mongodump ```mongodump --collection users --db p123456 --out ~/workspaces/users-and-groups-demo/data``` (see http://docs.mongodb.org/v2.2/reference/mongodump/)
+* Make an export of your data with mongodump ```mongodump --collection groups --db p123456 --out ~/workspaces/users-and-groups-demo/data``` (see http://docs.mongodb.org/v2.2/reference/mongodump/)
 * Push the repository
 *
 
