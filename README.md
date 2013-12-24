@@ -76,5 +76,5 @@ Instructions to prepare a deployment
 ** ```mongodump --collection groups --db p123456 --out ~/workspaces/users-and-groups-demo/data```
 * (see http://docs.mongodb.org/v2.2/reference/mongodump/)
 * Push the repository
-*
+
 
