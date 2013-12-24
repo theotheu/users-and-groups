@@ -20,10 +20,10 @@ cd ~/workspaces/users-and-groups-demo
 
 Import seed
 ```
-mongorestore --collection users --db p123456 ~/workspaces/users-and-groups-demo/data/p123456/users.bson
-mongorestore --collection users --db p123456 ~/workspaces/users-and-groups-demo/data/p123456/users.metadata.json
-mongorestore --collection groups --db p123456 ~/workspaces/users-and-groups-demo/data/p123456/groups.bson
-mongorestore --collection groups --db p123456 ~/workspaces/users-and-groups-demo/data/p123456/groups.metadata.json
+mongorestore --collection users --db p123456 ~/workspaces/users-and-groups-demo/data/seed/users.bson
+mongorestore --collection users --db p123456 ~/workspaces/users-and-groups-demo/data/seed/users.metadata.json
+mongorestore --collection groups --db p123456 ~/workspaces/users-and-groups-demo/data/seed/groups.bson
+mongorestore --collection groups --db p123456 ~/workspaces/users-and-groups-demo/data/seed/groups.metadata.json
 ```
 
 Configuration
