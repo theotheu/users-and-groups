@@ -71,8 +71,10 @@ Instructions to prepare a deployment
 ===================================
 
 * Verify that you have a explanatory README.md
-* Make an export of your data with mongodump ```mongodump --collection users --db p123456 --out ~/workspaces/users-and-groups-demo/data``` (see http://docs.mongodb.org/v2.2/reference/mongodump/)
-* Make an export of your data with mongodump ```mongodump --collection groups --db p123456 --out ~/workspaces/users-and-groups-demo/data``` (see http://docs.mongodb.org/v2.2/reference/mongodump/)
+* Make an export of your data with mongodump
+** ```mongodump --collection users --db p123456 --out ~/workspaces/users-and-groups-demo/data```
+** ```mongodump --collection groups --db p123456 --out ~/workspaces/users-and-groups-demo/data```
+* (see http://docs.mongodb.org/v2.2/reference/mongodump/)
 * Push the repository
 *
 
