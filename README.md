@@ -21,7 +21,7 @@ Configuration
 ----------
 Copy ```config.js.default``` to ```config.js```.
 ```sh
-cp ~/workspaces/users-and-groups-demo/server/config/config.js.default ~/workspaces/users-and-groups/server/config/config.js
+cp ~/workspaces/users-and-groups-demo/server/config/config.js.default ~/workspaces/users-and-groups-demo/server/config/config.js
 ```
 
 Change the database, port and emailaddress.
