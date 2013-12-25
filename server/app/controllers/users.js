@@ -106,6 +106,44 @@ exports.detail = function (req, res) {
         })
 }
 
+// Nested callback for $addToSet
+function updateGroupsWithUser(err, req, res, groups, doc) {
+    var group;
+
+    console.log('>>>>> \n', groups, '\n<<<<<');
+
+    if (!groups || groups.length === 0) {
+        var retObj = {
+            meta: {"action": "update", 'timestamp': new Date(), filename: __filename},
+            doc: doc,
+            err: err
+        };
+        return res.send(retObj);
+    } else {
+        // Get first element from groups array.
+        var group = groups.pop();
+        console.log('>>>>> \n', group, '\n<<<<<');
+
+
+        if (group.isMember) {
+            // Add to set
+            User
+                .update({_id: doc._id}, {$addToSet: {"groups": group}}, function (res1) {
+                    updateGroupsWithUser(err, req, res, groups, doc);
+                });
+        } else {
+            // Remove from set
+           // User
+                //.update({_id: doc._id}, {$addToSet: {"groups": group}}, function (res1) {
+                    updateGroupsWithUser(err, req, res, groups, doc);
+               // });
+        }
+
+
+    }
+}
+
+
 // UPDATE
 // findOneAndUpdate @ http://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate
 exports.update = function (req, res) {
@@ -113,7 +151,7 @@ exports.update = function (req, res) {
     console.log('UPDATE user.');
 
     // Password validation. Can only partially be a validation rule from the model because of confirmPassword.
-    if (!req.body.password || (req.body.password && req.body.password !== '' && (req.body.password.length < 8 || req.body.password !== req.body.confirmPassword))) {
+    if (req.body.doc.password && req.body.doc.password !== '' && (req.body.doc.password.length < 8 || req.body.doc.password !== req.body.doc.confirmPassword)) {
         var retObj = {
             meta: {"action": "update", 'timestamp': new Date(), filename: __filename},
             doc: null,
@@ -124,45 +162,38 @@ exports.update = function (req, res) {
         return res.send(retObj);
     }
 
-    // Make sure that password is hashed.
-    req.body.password = passwordHash.generate(req.body.password || "topSecret!");
 
     console.log('Updating....\n', req.body);
 
 
     var conditions = req.params._id
         , update = {
-            gender: req.body.gender || 'male',
-            name: req.body.name || '',
+            gender: req.body.doc.gender || 'male',
+            name: req.body.doc.name || '',
             location: {
-                street: req.body.location.street || '',
-                city: req.body.location.city || '',
-                zip: req.body.location.zip || '',
-                state: req.body.location.state || ''
+                street: req.body.doc.location.street || '',
+                city: req.body.doc.location.city || '',
+                zip: req.body.doc.location.zip || '',
+                state: req.body.doc.location.state || ''
             },
-            phone: req.body.phone || '',
-            email: req.body.email || '',
-            picture: req.body.picture || '',
-            description: req.body.description,
+            phone: req.body.doc.phone || '',
+            email: req.body.doc.email || '',
+            picture: req.body.doc.picture || '',
+            description: req.body.doc.description,
             modificationDate: Date.now()
         }
         , options = { multi: false }
         , callback = function (err, doc) {
-            console.log('Updated, yes!');
-            var retObj = {
-                meta: {"action": "update", 'timestamp': new Date(), filename: __filename},
-                doc: doc,
-                err: err
-            };
-            return res.send(retObj);
+             updateGroupsWithUser(err, req, res, req.body.groups, doc);
         };
 
     if (update.picture === '') {
         update.picture = "user.png";
     }
 
-    if (req.body.password && req.body.password !== '') {
-        update.password = req.body.password;
+    if (req.body.doc.password && req.body.doc.password !== '') {
+        // Make sure that password is hashed.
+        update.password = passwordHash.generate(req.body.doc.password || "topSecret!");
     }
 
     User

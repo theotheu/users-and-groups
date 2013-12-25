@@ -66,6 +66,7 @@ function GroupDetailCtrl($scope, $routeParams, $location, groupsService) {
 }
 function HomeCtrl() {
     // TODO: Replace "home.html" template.
+    alert("Where is my view!")
 }
 
 /**
@@ -158,6 +159,11 @@ function UserDetailCtrl($scope, $routeParams, $location, usersService) {
         $location.path("/users");
     }
     $scope.save = function () {
+        console.log('--------------------------');
+        console.log($scope.users.groups);
+        console.log('--------------------------');
+
+
         if ($scope.users.doc && $scope.users.doc._id !== undefined) {
             console.log('Entering Update', $scope.users.doc);
             if ($scope.users.doc.password && $scope.users.doc.password.length !== '' && ($scope.users.doc.password.length < 8 || $scope.users.doc.password !== $scope.users.doc.confirmPassword)) {
@@ -166,7 +172,7 @@ function UserDetailCtrl($scope, $routeParams, $location, usersService) {
                 $scope.err = "Passwords must be the same. Please verify your password.";
                 return;
             }
-            usersService.users.update({_id: $scope.users.doc._id}, $scope.users.doc, function (res) {
+            usersService.users.update({_id: $scope.users.doc._id}, $scope.users, function (res) {
                 isSuccess = res.err === null;
                 $scope.isSuccess = isSuccess;
                 if (isSuccess) {
@@ -183,7 +189,7 @@ function UserDetailCtrl($scope, $routeParams, $location, usersService) {
                 $scope.err = "Passwords must be the same. Please verify your password.";
                 return;
             }
-            usersService.users.save({}, $scope.users.doc, function (res) {
+            usersService.users.save({}, $scope.users, function (res) {
                 isSuccess = res.err === null;
                 $scope.isSuccess = isSuccess;
                 if (isSuccess) {
