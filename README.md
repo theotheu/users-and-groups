@@ -1,6 +1,6 @@
 Description
 ===========
-This demo is the solution of users and groups with sub documents.
+This demo is a demo with users and groups with sub documents, also known as joins in SQL.
 
 Setup
 =====
