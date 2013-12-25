@@ -9,7 +9,7 @@ Installation for development
 
 Clone the repository with
 ```
-git clone https://github.com/theotheu/users-and-groups-solved.git ~/workspaces/users-and-groups-demo
+git clone https://github.com/theotheu/users-and-groups.git ~/workspaces/users-and-groups-demo
 ```
 
 Go to the working directory
