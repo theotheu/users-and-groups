@@ -15,7 +15,7 @@ mongoose = require('mongoose'),
  Nested documents differ from sub-documents by the fact that they can be defined with the schema and are not within in array.
  */
 var userSchema = Schema({
-    _id: {type: Schema.Types.ObjectId, ref: "User", required: true}
+    _id: {type: Schema.Types.ObjectId, ref: "User"}
 });
 
 /* Schema definitions */
@@ -25,13 +25,8 @@ var schemaName = Schema({
         description: {type: String},
         users: [userSchema], // <------------------------ subdocument
         meta: {}, // anything goes
-        createdBy: {type: Schema.Types.ObjectId, ref: "User", required: true},
-        creationDate: {type: Date, "default": Date.now},
-        modifiedBy: {type: Schema.Types.ObjectId, ref: "User", required: true},
         modificationDate: {type: Date, "default": Date.now}
-    }
-    , { autoIndex: false } // Disable autoindex for productoion, @see http://mongoosejs.com/docs/guide.html#indexes
-);
+    });
 schemaName.index({name: 1, createdBy: 1}, {unique: true});
 
 
@@ -43,9 +38,9 @@ schemaName.index({name: 1, createdBy: 1}, {unique: true});
  * if validation fails, then return false || if validation succeeds, then return true
  *
  * */
-schemaName.path('name').validate(function (val) {
-    return (val !== undefined && val !== null && val.length >= 8);
-}, 'Invalid name');
+//schemaName.path('name').validate(function (val) {
+//    return (val !== undefined && val !== null && val.length >= 3);
+//}, 'Invalid name');
 
 
 /*

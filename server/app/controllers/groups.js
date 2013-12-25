@@ -13,10 +13,8 @@ exports.create = function (req, res) {
     console.log('CREATE group.');
 
     var doc = new Group(req.body);
-    doc.createdBy = req._passport.session.user;
-    doc.modifiedBy = req._passport.session.user;
-    // Add the creator as member of the group
-    doc.users = {_id: req._passport.session.user};
+
+    console.log(doc);
 
     doc.save(function (err) {
 
@@ -39,7 +37,7 @@ exports.list = function (req, res) {
     console.log('GET groups.');
 
     // You can only see the groups you have created. (Not the groups you are member of)
-    conditions = {createdBy: req.session.user};
+    conditions = {};
     fields = {};
     sort = {'modificationDate': -1};
 
@@ -92,7 +90,6 @@ exports.update = function (req, res) {
         , update = {
             name: req.body.name,
             description: req.body.description || '',
-            modifiedBy: req._passport.session.user,
             modificationDate: Date.now()
         }
         , options = {}

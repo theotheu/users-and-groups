@@ -2,7 +2,6 @@ Description
 ===========
 This demo is the solution of users and groups with sub documents.
 
-
 Setup
 =====
 Installation for development
@@ -43,9 +42,13 @@ module.exports = {
     }
 }
 ```
+Import data
+-----------
+This is optional and not required but might be convenient.
+See the separate README in the data directory.
 
 Install node modules
-----------
+--------------------
 The archive is without the node modules.
 
 Install with
@@ -64,7 +67,7 @@ npm install -g supervisor
 
 Use it with
 ```sh
-supervisor --no-restart-on error app.js
+supervisor --no-restart-on error server.js
 ```
 
 Instructions to prepare a deployment

@@ -49,7 +49,6 @@ function GroupDetailCtrl($scope, $routeParams, $location, groupsService) {
                 }
                 // Show save and updates messages
                 $scope.checkResult = function (type, val) {
-                    console.log('huh?');
                     return checkResult($scope, type, val);
                 }
             });
@@ -66,7 +65,7 @@ function GroupDetailCtrl($scope, $routeParams, $location, groupsService) {
     }
 }
 function HomeCtrl() {
-    // TODO: Replace "home.html" template with logged in message.
+    // TODO: Replace "home.html" template.
 }
 
 /**
@@ -77,15 +76,42 @@ function HomeCtrl() {
  * @param usersService
  * @constructor
  */
-function UserCtrl($scope, $route, usersService) {
-    var newUser;
-    $scope.generateUser = function () {
-        console.log('Creating user...');
-        newUser = userGenerator();
-        usersService.users.save({}, newUser, function () {
-            $route.reload();
-        });
-    };
+function UserGeneratorCtrl($scope, usersService) {
+    var isSuccess, newUser;
+
+    $scope.genders = [
+        "male", "female"
+    ];
+    console.log('Creating user...');
+
+    // Generate user with random attribute values
+    newUser = userGenerator();
+
+    // Save user in MongoDb
+    usersService.users.save({}, newUser, function (res) {
+        $scope.users={doc:res.doc};
+        $scope.users.doc.password = res.doc.meta.humanReadablePassword;
+        $scope.users.doc.confirmPassword = res.doc.meta.humanReadablePassword;
+        isSuccess = res.err === null;
+        $scope.isSuccess = isSuccess;
+
+        if (isSuccess) {
+            $scope.msg = "User successfully created.";
+            $scope.users.doc._id = res.doc._id;
+        } else {
+            $scope.err = res.err.message || res.err.err;
+        }
+        // Show save and updates messages
+        $scope.checkResult = function (type, val) {
+            return checkResult($scope, type, val);
+        }
+
+
+    });
+         // Show save and updates messages
+    $scope.checkResult = function (type, val) {
+        return checkResult($scope, type, val);
+    }
 }
 /**
  * GET all users
@@ -267,19 +293,4 @@ function userGenerator() {
         }
     };
     return newUser;
-}
-// Helper for validating login
-function validateLogin(httpObj, locationObj) {
-    httpObj({method: 'get', url: '/account'})
-        .success(function (data, status, headers, config) {
-            if (data && data.isVerified && data.isVerified === true) {
-                return;
-            } else {
-                locationObj.path("/");
-            }
-        })
-        .error(function (data, status, headers, config) {
-            console.log('..... error ', data, status, headers, config);
-        })
-    ;
 }

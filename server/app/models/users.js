@@ -36,9 +36,6 @@ var schemaName = Schema({
     },
     groups: [groupSchema], // <----- sub document
     meta: {}, // anything goes
-    createdBy: {type: Schema.Types.ObjectId, ref: "User", required: true},
-    creationDate: {type: Date, "default": Date.now},
-    modifiedBy: {type: Schema.Types.ObjectId, ref: "User", required: true},
     modificationDate: {type: Date, "default": Date.now}
 });
 

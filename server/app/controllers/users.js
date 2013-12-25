@@ -15,23 +15,10 @@ exports.create = function (req, res) {
     // Encrypt password
     console.log('CREATE user.');
 
-    if (!req.body.password || req.body.password === null || req.body.password === undefined || req.body.password.length < 8 || req.body.password !== req.body.confirmPassword) {
-        var retObj = {
-            meta: {"action": "create", 'timestamp': new Date(), filename: __filename, body: req.body},
-            doc: null,
-            err: {
-                message: "Passwords must be the same. Please verify your password."
-            }
-        };
-        return res.send(retObj);
-    }
-
     req.body.password = passwordHash.generate(req.body.password || "topSecret!");
 
 
     var doc = new User(req.body);
-    doc.createdBy = req._passport.session.user;
-    doc.modifiedBy = req._passport.session.user;
 
     doc.save(function (err) {
         var retObj = {
@@ -52,7 +39,7 @@ exports.list = function (req, res) {
 
     console.log('GET users.');
 
-    conditions = {$or:[{_id: req.session.user}, {createdBy: req.session.user}]};
+    conditions = {};
     fields = {};
     sort = {'modificationDate': -1};
 
@@ -82,8 +69,10 @@ exports.detail = function (req, res) {
         .findById(conditions, fields, options)
         .exec(function (err, doc) {
             console.log('createdBy', doc._id);
+
+            // Find groups for user
             Group
-                .find({$or: [{createdBy: doc._id}, {createdBy: req._passport.session.user}]}, function (err, groupsDoc) {
+                .find({}, function (err, groupsDoc) {
                     retDoc = [];
                     for (i = 0; i < groupsDoc.length; i++) {
                         groupDoc = {
@@ -95,20 +84,15 @@ exports.detail = function (req, res) {
 
                         groupsDoc[i].isMember = false;
 
-
                         if (groupsDoc[i].users && groupsDoc[i].users.length > 0) {
-                            console.log('*** ', groupsDoc[i]);
                             for (j = 0; j < groupsDoc[i].users.length; j++) {
-                                console.log('... ', groupsDoc[i].users[j]._id, doc._id, groupsDoc[i].users[j]._id == doc._id, (groupsDoc[i].users[j]._id + "") === (doc._id + ""));
                                 if ((groupsDoc[i].users[j]._id + "") === (doc._id + "")) {
-                                    console.log('yyy ', groupsDoc[i].users[j], doc._id);
                                     groupDoc.isMember = true;
                                 }
                             }
                         }
                         retDoc.push(groupDoc);
                     }
-
 
                     var retObj = {
                         meta: {"action": "detail", 'timestamp': new Date(), filename: __filename},
@@ -119,7 +103,6 @@ exports.detail = function (req, res) {
                     return res.send(retObj);
                 });
 
-
         })
 }
 
@@ -129,18 +112,17 @@ exports.update = function (req, res) {
 
     console.log('UPDATE user.');
 
-
-    if (req.body.password && req.body.password !== '' && (req.body.password.length < 8 || req.body.password !== req.body.confirmPassword)) {
+    // Password validation. Can only partially be a validation rule from the model because of confirmPassword.
+    if (!req.body.password || (req.body.password && req.body.password !== '' && (req.body.password.length < 8 || req.body.password !== req.body.confirmPassword))) {
         var retObj = {
             meta: {"action": "update", 'timestamp': new Date(), filename: __filename},
             doc: null,
             err: {
-                message: "Passwords must be the sane. Please verify your password."
+                message: "Passwords must be the same and at least 8 characters. Please verify your password."
             }
         };
         return res.send(retObj);
     }
-
 
     // Make sure that password is hashed.
     req.body.password = passwordHash.generate(req.body.password || "topSecret!");
@@ -162,7 +144,6 @@ exports.update = function (req, res) {
             email: req.body.email || '',
             picture: req.body.picture || '',
             description: req.body.description,
-            modifiedBy: req._passport.session.user,
             modificationDate: Date.now()
         }
         , options = { multi: false }
@@ -183,7 +164,6 @@ exports.update = function (req, res) {
     if (req.body.password && req.body.password !== '') {
         update.password = req.body.password;
     }
-
 
     User
         .findByIdAndUpdate(conditions, update, options, callback);

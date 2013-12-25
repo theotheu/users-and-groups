@@ -38,6 +38,11 @@ angular.module('myApp', [ 'myApp.services'])
             templateUrl: 'partials/user-detail.html',
             controller: UserDetailCtrl
         });
+        // Generate User
+        $routeProvider.when('/generateUser', {
+            templateUrl: 'partials/user-detail.html',
+            controller: UserGeneratorCtrl
+        });
 
 
         // When no valid route is provided
