@@ -30,9 +30,9 @@ Example
 ```javascript
 module.exports = {
     development: {
-        db: 'mongodb://localhost/p123456',
-        port: 3000,
-        mailTo: "you@example.com",
+        db: 'mongodb://localhost/p123456', // <------------ Replace this with your database name
+        port: 3000, // <----------------------------------- Replace this with your port number
+        mailTo: "you@example.com",  // <------------------- Replace this with your email address
         AccessControlAllowMethods: "GET,PUT,POST,DELETE",
         allowedDomains: "*"
     }
