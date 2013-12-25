@@ -9,7 +9,7 @@ Installation for development
 
 Clone the repository with
 ```
-git clone https://github.com/theotheu/books-solved.git ~/workspaces/users-and-groups-demo
+git clone https://github.com/theotheu/users-and-groups-solved.git ~/workspaces/users-and-groups-demo
 ```
 
 Go to the working directory
@@ -21,7 +21,7 @@ Configuration
 ----------
 Copy ```config.js.default``` to ```config.js```.
 ```sh
-cp ~/workspaces/users-and-groups-demo/server/config/config.js.default ~/workspaces/booksDemo/server/config/config.js
+cp ~/workspaces/users-and-groups-demo/server/config/config.js.default ~/workspaces/users-and-groups/server/config/config.js
 ```
 
 Change the database, port and emailaddress.
