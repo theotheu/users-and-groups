@@ -67,8 +67,12 @@ exports.detail = function (req, res) {
 
     User
         .findById(conditions, fields, options)
+        .populate("Group")// <------------------ populating sub documents, only for demo, not needed here
         .exec(function (err, doc) {
-            console.log('createdBy', doc._id);
+            var groups = [];
+            for (i = 0; i < doc.groups.length; i++) {
+                groups.push(doc.groups[i]._id + "");
+            }
 
             // Find groups for user
             Group
@@ -79,17 +83,10 @@ exports.detail = function (req, res) {
                             _id: groupsDoc[i]._id,
                             name: groupsDoc[i].name,
                             isMember: false
-
                         };
 
-                        groupsDoc[i].isMember = false;
-
-                        if (groupsDoc[i].users && groupsDoc[i].users.length > 0) {
-                            for (j = 0; j < groupsDoc[i].users.length; j++) {
-                                if ((groupsDoc[i].users[j]._id + "") === (doc._id + "")) {
-                                    groupDoc.isMember = true;
-                                }
-                            }
+                        if (groups.indexOf(groupsDoc[i]._id + "") >= 0) {
+                            groupDoc.isMember = true;
                         }
                         retDoc.push(groupDoc);
                     }
@@ -110,9 +107,8 @@ exports.detail = function (req, res) {
 function updateGroupsWithUser(err, req, res, groups, doc) {
     var group;
 
-    console.log('>>>>> \n', groups, '\n<<<<<');
-
     if (!groups || groups.length === 0) {
+        // Return if no array or empty array (consider alternative $pullAll)
         var retObj = {
             meta: {"action": "update", 'timestamp': new Date(), filename: __filename},
             doc: doc,
@@ -121,10 +117,9 @@ function updateGroupsWithUser(err, req, res, groups, doc) {
         return res.send(retObj);
     } else {
         // Get first element from groups array.
-        var group = groups.pop();
-        console.log('>>>>> \n', group, '\n<<<<<');
+        group = groups.pop();
 
-
+        // Check if group has to be added or excluded from groupsm based on attribute "isMember"
         if (group.isMember) {
             // Add to set
             User
@@ -133,13 +128,11 @@ function updateGroupsWithUser(err, req, res, groups, doc) {
                 });
         } else {
             // Remove from set
-           // User
-                //.update({_id: doc._id}, {$addToSet: {"groups": group}}, function (res1) {
+            User
+                .update({_id: doc._id}, {$pull: {"groups": group}}, function (res1) {
                     updateGroupsWithUser(err, req, res, groups, doc);
-               // });
+                });
         }
-
-
     }
 }
 
@@ -184,7 +177,7 @@ exports.update = function (req, res) {
         }
         , options = { multi: false }
         , callback = function (err, doc) {
-             updateGroupsWithUser(err, req, res, req.body.groups, doc);
+            updateGroupsWithUser(err, req, res, req.body.groups, doc);
         };
 
     if (update.picture === '') {
