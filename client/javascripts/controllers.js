@@ -19,6 +19,7 @@ function GroupDetailCtrl($scope, $routeParams, $location, groupsService) {
             console.log('$scope.requests ', $scope.requests);
         });
     }
+
     // CREATE, UPDATE assertion
     $scope.save = function (assertionForm) {
         console.log('Group / entering save ');
@@ -90,7 +91,7 @@ function UserGeneratorCtrl($scope, usersService) {
 
     // Save user in MongoDb
     usersService.users.save({}, newUser, function (res) {
-        $scope.users={doc:res.doc};
+        $scope.users = {doc: res.doc};
         $scope.users.doc.password = res.doc.meta.humanReadablePassword;
         $scope.users.doc.confirmPassword = res.doc.meta.humanReadablePassword;
         isSuccess = res.err === null;
@@ -109,7 +110,7 @@ function UserGeneratorCtrl($scope, usersService) {
 
 
     });
-         // Show save and updates messages
+    // Show save and updates messages
     $scope.checkResult = function (type, val) {
         return checkResult($scope, type, val);
     }
@@ -138,22 +139,19 @@ function UserDetailCtrl($scope, $routeParams, $location, usersService) {
     $scope.genders = [
         "male", "female"
     ];
-    if ($routeParams._id !== "0") {
-        usersService.users.get({_id: $routeParams._id}, function (data) {
-            $scope.users = data;
-            if (data.doc) {
-                $scope.users.doc.password = null;
-                $scope.users.doc.confirmPassword = null;
-            }
-        });
-    } else {
-        $scope.users = {
-            doc: {
-                gender: "male",
-                picture: "user.png"
-            }
+
+
+    usersService.users.get({_id: $routeParams._id}, function (data) {
+        $scope.users = data;
+
+        if (data.doc) {
+            $scope.users.doc.password = null;
+            $scope.users.doc.confirmPassword = null;
+
         }
-    }
+    });
+
+
     $scope.delete = function (_id) {
         usersService.users.delete({_id: _id});
         $location.path("/users");

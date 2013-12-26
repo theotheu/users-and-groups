@@ -15,7 +15,7 @@ mongoose = require('mongoose'),
  Nested documents differ from sub-documents by the fact that they can be defined with the schema and are not within in array.
  */
 var groupSchema = Schema({
-    _id: {type: Schema.Types.ObjectId, ref: "Group", required: true}
+    _id: {type: Schema.Types.ObjectId, ref: "Group"}
 });
 
 /* Schema definitions */

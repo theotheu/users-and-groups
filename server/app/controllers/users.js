@@ -17,8 +17,7 @@ exports.create = function (req, res) {
 
     req.body.password = passwordHash.generate(req.body.password || "topSecret!");
 
-
-    var doc = new User(req.body);
+    var doc = new User(req.body.doc);
 
     doc.save(function (err) {
         var retObj = {
@@ -69,9 +68,17 @@ exports.detail = function (req, res) {
         .findById(conditions, fields, options)
         .populate("Group")// <------------------ populating sub documents, only for demo, not needed here
         .exec(function (err, doc) {
+
             var groups = [];
-            for (i = 0; i < doc.groups.length; i++) {
-                groups.push(doc.groups[i]._id + "");
+            // Create a array, so that we can compare all groups with existing groups
+            if (!doc) {
+                doc = {};
+                doc.gender = "male";
+                doc.picture = "user.png";
+            } else if (doc && doc.groups) {
+                for (i = 0; i < doc.groups.length; i++) {
+                    groups.push(doc.groups[i]._id + "");
+                }
             }
 
             // Find groups for user
@@ -99,7 +106,6 @@ exports.detail = function (req, res) {
                     };
                     return res.send(retObj);
                 });
-
         })
 }
 
