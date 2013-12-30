@@ -1,7 +1,7 @@
 Import instructions
 ===========
 1. Replace ```p123456``` with the name of your database.
-2. Import the data (per collection or in 1 step)
+2. Import the data (per collection or in one step)
 3. Done
 
 
@@ -13,7 +13,7 @@ mongorestore --collection groups --db p123456 ~/workspaces/users-and-groups-demo
 mongorestore --collection groups --db p123456 ~/workspaces/users-and-groups-demo/data/seed/groups.metadata.json
 ```
 
-Import all data in one
+Import all data in one step
 ```
 mongorestore -d p123456 ~/workspaces/users-and-groups-demo/data/seed
 ```
