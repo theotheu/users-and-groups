@@ -1,7 +1,7 @@
 Import instructions
 ===========
 1. Replace ```p123456``` with the name of your database.
-2. Import the data
+2. Import the data (per collection or in 1 step)
 3. Done
 
 
