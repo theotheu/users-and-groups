@@ -26,6 +26,9 @@ cp ~/workspaces/users-and-groups-demo/server/config/config.js.default ~/workspac
 
 Change the database, port and emailaddress.
 
+```sh
+vi ~/workspaces/users-and-groups-demo/server/config/config.js
+```
 Example
 ```javascript
 module.exports = {
