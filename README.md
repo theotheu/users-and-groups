@@ -26,6 +26,9 @@ cp ~/workspaces/users-and-groups-demo/server/config/config.js.default ~/workspac
 
 Change the database, port and emailaddress.
 
+```sh
+vi ~/workspaces/users-and-groups-demo/server/config/config.js
+```
 Example
 ```javascript
 module.exports = {
@@ -74,10 +77,11 @@ Instructions to prepare a deployment
 ===================================
 
 * Verify that you have a explanatory README.md
+* Make sure that the output directory exist ```mkdir ~/workspaces/users-and-groups-demo/data```
 * Make an export of your data with mongodump
-** ```mongodump --collection users --db p123456 --out ~/workspaces/users-and-groups-demo/data```
- ```mongodump --collection groups --db p123456 --out ~/workspaces/users-and-groups-demo/data```
+* ```mongodump -d p123456 -o ~/workspaces/users-and-groups-demo/data```
 * (see http://docs.mongodb.org/v2.2/reference/mongodump/)
+* Create in ~/workspaces/users-and-groups-demo/data a README.md with import instructions.
 * Push the repository
 
 
