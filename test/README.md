@@ -1,4 +1,4 @@
 
-
-
-Run tests with `npm test`
+Run the tests
+--------------------
+Run `npm test`
