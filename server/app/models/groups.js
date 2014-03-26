@@ -23,7 +23,7 @@ var userSchema = Schema({
 var schemaName = Schema({
     name: {type: String, required: true},
     description: {type: String},
-    users: [userSchema], // <------------------------ subdocument
+    users: [userSchema], // <------------------------ sub document
     meta: {}, // anything goes
     modificationDate: {type: Date, "default": Date.now}
 });
