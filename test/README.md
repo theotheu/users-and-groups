@@ -1,6 +1,6 @@
-Install mocha
--------------
-Run `npm install mocha`
+Install packages
+----------------
+Run `npm install`
 
 Run the tests
 -------------
