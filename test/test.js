@@ -36,7 +36,7 @@ var Group = mongoose.model('Group');
  * Now the tests
  */
 
-describe('Group', function () {
+describe('Model test for Group', function () {
     describe('CRUD operations with start up and tear down', function () {
         var doc = null;
 
