@@ -91,6 +91,7 @@ function UserGeneratorCtrl($scope, usersService) {
 
     // Save user in MongoDb
     usersService.users.save({}, newUser, function (res) {
+        console.log(res);
         $scope.users = {doc: res.doc};
         $scope.users.doc.password = res.doc.meta.humanReadablePassword;
         $scope.users.doc.confirmPassword = res.doc.meta.humanReadablePassword;
@@ -187,7 +188,7 @@ function UserDetailCtrl($scope, $routeParams, $location, usersService) {
                 $scope.err = "Passwords must be the same. Please verify your password.";
                 return;
             }
-            usersService.users.save({}, $scope.users, function (res) {
+            usersService.users.save({}, $scope.users.doc, function (res) {
                 isSuccess = res.err === null;
                 $scope.isSuccess = isSuccess;
                 if (isSuccess) {

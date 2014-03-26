@@ -17,7 +17,7 @@ exports.create = function (req, res) {
 
     req.body.password = passwordHash.generate(req.body.password || "topSecret!");
 
-    var doc = new User(req.body.doc);
+    var doc = new User(req.body);
 
     doc.save(function (err) {
         var retObj = {

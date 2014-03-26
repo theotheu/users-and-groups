@@ -21,12 +21,12 @@ var userSchema = Schema({
 /* Schema definitions */
 // Schema types @see http://mongoosejs.com/docs/schematypes.html
 var schemaName = Schema({
-        name: {type: String, required: true},
-        description: {type: String},
-        users: [userSchema], // <------------------------ subdocument
-        meta: {}, // anything goes
-        modificationDate: {type: Date, "default": Date.now}
-    });
+    name: {type: String, required: true},
+    description: {type: String},
+    users: [userSchema], // <------------------------ subdocument
+    meta: {}, // anything goes
+    modificationDate: {type: Date, "default": Date.now}
+});
 schemaName.index({name: 1, createdBy: 1}, {unique: true});
 
 
