@@ -47,15 +47,15 @@ var schemaName = Schema({
  * if validation fails, then return false || if validation succeeds, then return true
  *
  * */
-//schemaName.path('name').validate(function (val) {
-//    return (val !== undefined && val !== null && val.length >= 8);
-//}, 'Invalid name');
-//
-//schemaName.path('email').validate(function (val) {
-//    // Some awful regular expression. Note that you should not use regular expressions for validating email addresses.
-//    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-//    return re.test(val);
-//}, 'Invalid email');
+schemaName.path('name').validate(function (val) {
+    return (val !== undefined && val !== null && val.length >= 8);
+}, 'Invalid name');
+
+schemaName.path('email').validate(function (val) {
+    // Some awful regular expression. Note that you should not use regular expressions for validating email addresses.
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(val);
+}, 'Invalid email');
 
 
 /*

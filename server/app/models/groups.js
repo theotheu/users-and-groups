@@ -38,9 +38,9 @@ schemaName.index({name: 1, createdBy: 1}, {unique: true});
  * if validation fails, then return false || if validation succeeds, then return true
  *
  * */
-//schemaName.path('name').validate(function (val) {
-//    return (val !== undefined && val !== null && val.length >= 3);
-//}, 'Invalid name');
+schemaName.path('name').validate(function (val) {
+    return (val !== undefined && val !== null && val.length >= 3);
+}, 'Invalid name');
 
 
 /*
