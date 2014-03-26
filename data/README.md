@@ -7,13 +7,13 @@ Import instructions
 
 Import seed per collection
 ```
-mongorestore --collection users --db p123456 ~/workspaces/users-and-groups-demo/data/seed/users.bson
-mongorestore --collection users --db p123456 ~/workspaces/users-and-groups-demo/data/seed/users.metadata.json
-mongorestore --collection groups --db p123456 ~/workspaces/users-and-groups-demo/data/seed/groups.bson
-mongorestore --collection groups --db p123456 ~/workspaces/users-and-groups-demo/data/seed/groups.metadata.json
+mongorestore --collection users --db p123456 ~/workspaces/users-and-groups/data/seed/users.bson
+mongorestore --collection users --db p123456 ~/workspaces/users-and-groups/data/seed/users.metadata.json
+mongorestore --collection groups --db p123456 ~/workspaces/users-and-groups/data/seed/groups.bson
+mongorestore --collection groups --db p123456 ~/workspaces/users-and-groups/data/seed/groups.metadata.json
 ```
 
 Import all data in one step
 ```
-mongorestore -d p123456 ~/workspaces/users-and-groups-demo/data/seed
+mongorestore -d p123456 ~/workspaces/users-and-groups/data/seed
 ```

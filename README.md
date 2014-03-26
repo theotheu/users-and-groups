@@ -9,25 +9,25 @@ Installation for development
 
 Clone the repository with
 ```
-git clone https://github.com/theotheu/users-and-groups.git ~/workspaces/users-and-groups-demo
+git clone https://github.com/theotheu/users-and-groups.git ~/workspaces/users-and-groups
 ```
 
 Go to the working directory
 ```
-cd ~/workspaces/users-and-groups-demo
+cd ~/workspaces/users-and-groups
 ```
 
 Configuration
 ----------
 Copy ```config.js.default``` to ```config.js```.
 ```sh
-cp ~/workspaces/users-and-groups-demo/server/config/config.js.default ~/workspaces/users-and-groups-demo/server/config/config.js
+cp ~/workspaces/users-and-groups/server/config/config.js.default ~/workspaces/users-and-groups/server/config/config.js
 ```
 
 Change the database, port and emailaddress.
 
 ```sh
-vi ~/workspaces/users-and-groups-demo/server/config/config.js
+vi ~/workspaces/users-and-groups/server/config/config.js
 ```
 Example
 ```javascript
@@ -56,7 +56,7 @@ The archive is without the node modules.
 
 Install with
 ```sh
-cd ~/workspaces/users-and-groups-demo/server
+cd ~/workspaces/users-and-groups/server
 npm install
 ```
 
@@ -77,11 +77,11 @@ Instructions to prepare a deployment
 ===================================
 
 * Verify that you have a explanatory README.md
-* Make sure that the output directory exist ```mkdir ~/workspaces/users-and-groups-demo/data```
+* Make sure that the output directory exist ```mkdir ~/workspaces/users-and-groups/data```
 * Make an export of your data with mongodump
-* ```mongodump -d p123456 -o ~/workspaces/users-and-groups-demo/data```
+* ```mongodump -d p123456 -o ~/workspaces/users-and-groups/data```
 * (see http://docs.mongodb.org/v2.2/reference/mongodump/)
-* Create in ~/workspaces/users-and-groups-demo/data a README.md with import instructions.
+* Create in ~/workspaces/users-and-groups/data a README.md with import instructions.
 * Push the repository
 
 
