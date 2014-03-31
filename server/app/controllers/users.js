@@ -125,7 +125,7 @@ function updateGroupsWithUser(err, req, res, groups, doc) {
         // Get first element from groups array.
         group = groups.pop();
 
-        // Check if group has to be added or excluded from groupsm based on attribute "isMember"
+        // Check if group has to be added or excluded from groups based on attribute "isMember"
         if (group.isMember) {
             // Add to set
             User
