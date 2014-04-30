@@ -6,8 +6,18 @@
         "start": "node server.js"
     },
     "dependencies": {
-        "express": "3.x",
+        "express": "*",
         "mongoose": "*",
         "password-hash": "*"
+    },
+    "devDependencies": {
+        "static-favicon": "~1.0.2",
+        "morgan": "~1.0.0",
+        "method-override": "~1.0.0",
+        "connect": "~2.14.5",
+        "cookie-parser": "~1.0.1",
+        "express-session": "~1.0.4",
+        "body-parser": "~1.0.2",
+        "express-error-handler": "~0.5.4"
     }
 }
